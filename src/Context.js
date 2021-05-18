@@ -3,6 +3,7 @@ const Context = React.createContext();
 
 function ContextProvider({ children }) {
   const [allPhotos, setallPhotos] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -26,8 +27,24 @@ function ContextProvider({ children }) {
     setallPhotos(updateArr);
   }
 
+  function addToCart(newItem) {
+    setCartItems((prevState) => [...prevState, newItem]);
+  }
+
+  function removeFromCart(id) {
+    setCartItems((prevState) => prevState.filter((item) => item.id !== id));
+  }
+
   return (
-    <Context.Provider value={{ allPhotos, toggleFavorite }}>
+    <Context.Provider
+      value={{
+        allPhotos,
+        toggleFavorite,
+        cartItems,
+        addToCart,
+        removeFromCart,
+      }}
+    >
       {children}
     </Context.Provider>
   );

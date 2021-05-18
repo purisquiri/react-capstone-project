@@ -4,7 +4,8 @@ import { Context } from "../Context";
 
 export default function Image({ className, img }) {
   const [isHovered, setIsHovered] = useState(false);
-  const { toggleFavorite } = useContext(Context);
+  const { toggleFavorite, addToCart, cartItems, removeFromCart } =
+    useContext(Context);
 
   function heartIcon() {
     if (img.isFavorite) {
@@ -24,7 +25,24 @@ export default function Image({ className, img }) {
     }
   }
 
-  const cartIcon = isHovered && <i className="ri-add-circle-line cart"></i>;
+  function cartIcon() {
+    const someItems = cartItems.some((item) => item.id === img.id);
+    if (someItems) {
+      return (
+        <i
+          className="ri-shopping-cart-fill cart"
+          onClick={() => removeFromCart(img.id)}
+        ></i>
+      );
+    } else if (isHovered) {
+      return (
+        <i
+          className="ri-add-circle-line cart"
+          onClick={() => addToCart(img)}
+        ></i>
+      );
+    }
+  }
 
   return (
     <div
@@ -35,7 +53,7 @@ export default function Image({ className, img }) {
       <img src={img.url} className="image-grid" alt="random photos" />
 
       {heartIcon()}
-      {cartIcon}
+      {cartIcon()}
     </div>
   );
 }
