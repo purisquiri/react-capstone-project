@@ -5,4 +5,3 @@ export function getClass(i) {
     return "wide";
   }
 }
-utils;
