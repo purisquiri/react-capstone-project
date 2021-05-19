@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Context } from "../Context";
+// import useHover from "../hooks/useHover";
 
 export default function Image({ className, img }) {
   const [isHovered, setIsHovered] = useState(false);
+  // const [isHovered, ref] = useHover();
   const { toggleFavorite, addToCart, cartItems, removeFromCart } =
     useContext(Context);
 
@@ -26,8 +28,8 @@ export default function Image({ className, img }) {
   }
 
   function cartIcon() {
-    const someItems = cartItems.some((item) => item.id === img.id);
-    if (someItems) {
+    const alreadyInCart = cartItems.some((item) => item.id === img.id);
+    if (alreadyInCart) {
       return (
         <i
           className="ri-shopping-cart-fill cart"
@@ -47,6 +49,7 @@ export default function Image({ className, img }) {
   return (
     <div
       className={`${className} image-container`}
+      // ref={ref}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
