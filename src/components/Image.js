@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Context } from "../Context";
-// import useHover from "../hooks/useHover";
+import useHover from "../hooks/useHover";
 
 export default function Image({ className, img }) {
-  const [isHovered, setIsHovered] = useState(false);
-  // const [isHovered, ref] = useHover();
+  // const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, ref] = useHover();
   const { toggleFavorite, addToCart, cartItems, removeFromCart } =
     useContext(Context);
 
@@ -49,9 +49,9 @@ export default function Image({ className, img }) {
   return (
     <div
       className={`${className} image-container`}
-      // ref={ref}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      ref={ref}
+      // onMouseEnter={() => setIsHovered(true)}
+      // onMouseLeave={() => setIsHovered(false)}
     >
       <img src={img.url} className="image-grid" alt="random photos" />
 
